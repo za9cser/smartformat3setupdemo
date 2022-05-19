@@ -8,13 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-
 Smart.Default = Smart.CreateDefaultSmartFormat(new SmartSettings
 {
     Formatter = new FormatterSettings { ErrorAction = FormatErrorAction.Ignore },
     Parser = new ParserSettings { ErrorAction = ParseErrorAction.Ignore }
 });
-
+Smart.Default.Settings.StringFormatCompatibility = true;
 // вырубаем форматтеры даты м времени от SmartFormat, чтобы работали стандартные .net форматтеры
 Smart.Default.AddExtensions(new TimeFormatter());
 Smart.Default.GetFormatterExtension<IsMatchFormatter>().RegexOptions = RegexOptions.CultureInvariant;
