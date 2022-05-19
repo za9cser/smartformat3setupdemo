@@ -17,11 +17,6 @@ public class TestController : ControllerBase
             Street = "4th street"
         };
 
-        var customFormatResult = CustomFormat.Format("{CreateDate:dd.MM.yyyy HH\\:mm} {Name} {Street:ismatch(th):TH|th}",
-            test
-        );
-        Console.WriteLine(customFormatResult); // 22.05.2022 12:07 John 4th street
-
         try
         {
             var smartFormatResult = Smart.Format("{CreateDate:dd.MM.yyyy HH\\:mm {Name} {Street:ismatch(th):TH|th}",
