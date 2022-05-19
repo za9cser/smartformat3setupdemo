@@ -17,14 +17,14 @@ public class TestController : ControllerBase
             Street = "4th street"
         };
 
-        var customFormatResult = CustomFormat.Format("{CreateDate:dd.MM.yyyy HH:mm} {Name} {Street:ismatch(th):TH|th}",
+        var customFormatResult = CustomFormat.Format("{CreateDate:dd.MM.yyyy HH\\:mm} {Name} {Street:ismatch(th):TH|th}",
             test
         );
         Console.WriteLine(customFormatResult); // 22.05.2022 12:07 John 4th street
 
         try
         {
-            var smartFormatResult = Smart.Format("{CreateDate:dd.MM.yyyy HH:mm} {Name} {Street:ismatch(th):TH|th}",
+            var smartFormatResult = Smart.Format("{CreateDate:dd.MM.yyyy HH\\:mm {Name} {Street:ismatch(th):TH|th}",
                 test
             ); // throws FormattingException: Error parsing format string: No formatter with name 'dd.MM.yyyy HH' found at 0 {CreateDate:dd.MM.yyyy HH:mm} {Name} {Street:ismatch(th):TH|th}
 
