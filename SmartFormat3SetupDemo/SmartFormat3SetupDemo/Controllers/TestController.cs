@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SmartFormat;
 
 namespace SmartFormat3SetupDemo.Controllers;
@@ -21,10 +22,18 @@ public class TestController : ControllerBase
         );
         Console.WriteLine(customFormatResult); // 22.05.2022 12:07 John 4th street
 
-        var smartFormatResult = Smart.Format("{CreateDate:dd.MM.yyyy HH:mm} {Name} {Street:ismatch(th):TH|th}",
-            test
-        ); // throws FormattingException: Error parsing format string: No formatter with name 'dd.MM.yyyy HH' found at 0 {CreateDate:dd.MM.yyyy HH:mm} {Name} {Street:ismatch(th):TH|th}
+        try
+        {
+            var smartFormatResult = Smart.Format("{CreateDate:dd.MM.yyyy HH:mm} {Name} {Street:ismatch(th):TH|th}",
+                test
+            ); // throws FormattingException: Error parsing format string: No formatter with name 'dd.MM.yyyy HH' found at 0 {CreateDate:dd.MM.yyyy HH:mm} {Name} {Street:ismatch(th):TH|th}
 
-        return smartFormatResult;
+            return smartFormatResult;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(e, new JsonSerializerSettings { Formatting = Formatting.Indented, ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+            throw;
+        }
     }
 }
